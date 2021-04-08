@@ -26,10 +26,10 @@
 					<thead class="thead-dark">
 
 						<tr>
-							<th></th>
-							<th>Title</th>
-							<th>Short description</th>
-							<th>Actions</th>
+							<th scope="col" style="width: 38%;"></th>
+							<th scope="col">Title</th>
+							<th scope="col">Short description</th>
+							<th scope="col">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,7 +47,7 @@
 									<div class="col-lg-12 justify-content-center">
 										<a href="{{ path('app_blog_view', {id: blog.id})}}" class="btn btn-success">VIEW</a>
 										<a href="{{ path('app_main_editblog', {id: blog.id}) }}" class="btn btn-primary">Edit</a>
-										<a href="{{ path('app_blog_delete', {id: blog.id}) }}" onclick="return confirm('Sei sicuro?');" class="btn btn-danger">DELETE</a>
+										<a href="{{ path('app_blog_delete', {id: blog.id}) }}" onclick="return confirm('Sei sicuro di voler eliminare il blog N. {{blog.id}}?');" class="btn btn-danger">DELETE</a>
 									</div>
 								</td>
 							</tr>
