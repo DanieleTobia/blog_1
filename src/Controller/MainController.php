@@ -67,7 +67,7 @@ class MainController extends AbstractController
             $entityManager->persist($blog);
             $entityManager->flush();
             $this->addFlash('success', 'Blog was created!');
-            return $this->redirectToRoute('app_main_index');
+            return $this->redirectToRoute('app_blog_home');
         }
 
         return $this->render('create.html.twig', [
@@ -113,7 +113,7 @@ class MainController extends AbstractController
             $entityManager->persist($blog);
             $entityManager->flush();
             $this->addFlash('success', 'Blog was edited!');
-            return $this->redirectToRoute('app_main_index');
+            return $this->redirectToRoute('app_blog_home');
         }
 
         return $this->render('edit.html.twig', [
@@ -134,9 +134,9 @@ class MainController extends AbstractController
     {
         $em->remove($blog);
         $em->flush();
-        $this->addFlash('success', 'Blog was edited!');
+        $this->addFlash('success', 'Blog was deleted!');
 
-        return $this->redirectToRoute('app_main_index');
+        return $this->redirectToRoute('app_blog_home');
     }
 
     /**

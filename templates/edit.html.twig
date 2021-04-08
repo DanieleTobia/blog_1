@@ -9,12 +9,13 @@
 
 			{% for label, messages in app.flashes %}
 				{% for message in messages %}
-					<div class="flash-{{ label }}">
+					{# <div class="flash-{{ label }}">
 						{{ message }}
-					</div>
+					</div> #}
+					<div class="alert alert-success mt-5">{{ message }}</div>
 				{% endfor %}
 			{% endfor %}
-
+			{% form_theme form 'bootstrap_4_layout.html.twig' %}
 			{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 			{# {{ form_start(form) }} #}
 
