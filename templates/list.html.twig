@@ -39,7 +39,7 @@
 								{# <td><img src="{{blog.getImage()}}" alt="immagine non presente" width="250" height="200" onerror="if (this.src != 'default.png') this.src = 'default.png';"/></td> #}
 								{# <td><img src="{{blog.getImage()}}" alt="immagine non presente" width="250" height="200"></td> #}
 									<td>
-										<div class="col-md-8"> <img src="{{asset(blog.getImage)}}" alt="immagine non presente" class=" img-fluid mx-auto"/>
+										<div class="col-md-8"> <img src="{{asset("images/"~ blog.getImage)}}" alt="immagine non presente" class=" img-fluid mx-auto"/>
 									</div>
 								</td>
 								<td>{{ blog.getTitle() }}</td>

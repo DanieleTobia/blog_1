@@ -62,6 +62,8 @@ class MainController extends AbstractController
                     $this->addFlash('error', 'Image cannot be saved.');
                 }
                 $blog->setImage($newFilename);
+            } else {
+                $blog->setImage("default.png");
             }
 
             $entityManager->persist($blog);
@@ -78,20 +80,15 @@ class MainController extends AbstractController
     /**
      * @Route("/edit/{id}")
      *
-     * @ParamConverter("blog", class="App:Blog")
-     *
      * @return Response
      */
-    public function editBlog(Blog $blog, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger)
+    public function editBlog(Blog $blog, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, BlogRepository $blogRepository)
     {
-        if ($blog->getImage()) {
-            $blog->setImage(new File(sprintf('%s/%s', $this->getParameter('image_directory'), $blog->getImage())));
-        }
         $form = $this->createForm(BlogFormType::class, $blog);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $blog      = $form->getData();
+            $blog = $form->getData();
             $imageFile = $form->get('imageFile')->getData();
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -118,7 +115,7 @@ class MainController extends AbstractController
 
         return $this->render('edit.html.twig', [
             'form' => $form->createView(),
-            'blog'=>$blog,
+            'blog' => $blog,
         ]);
     }
 
@@ -130,8 +127,13 @@ class MainController extends AbstractController
      *
      * @return RedirectResponse
      */
-    public function deleteBlog(Blog $blog, EntityManagerInterface $em): RedirectResponse
+    public function deleteBlog(Blog $blog, EntityManagerInterface $em, BlogRepository $blogRepository): RedirectResponse
     {
+        $imageName = $blogRepository->find($blog->getId())->getImage();
+        if ($imageName != "default.png") {
+            $absolute_path = realpath($imageName);
+            unlink($absolute_path);
+        }
         $em->remove($blog);
         $em->flush();
         $this->addFlash('success', 'Blog was deleted!');

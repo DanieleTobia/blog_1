@@ -40,7 +40,6 @@ class Blog
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false, options={"default": "default.png"})
-     * @Assert\Image(maxSize="100k")
      */
     private $image;
 

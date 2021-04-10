@@ -2,64 +2,37 @@
 {% block title %}
 	Create Blog
 {% endblock %}
-{% block navbar_brand %} Create Blog {% endblock %}
+{% block navbar_brand %}
+	Create Blog
+{% endblock %}
 {% block body %}
 	<div class="container pt-5">
 		<div class="col-lg-8 align-center">
 
 			{% for label, messages in app.flashes %}
-					{% for message in messages %}
-						{# <div class="flash-{{ label }}">
-							{{ message }}
-						</div> #}
-						<div class="alert alert-success mt-5">{{ message }}</div>
-					{% endfor %}
+				{% for message in messages %}
+					{# <div class="flash-{{ label }}">
+												{{ message }}
+											</div> #}
+					<div class="alert alert-success mt-5">{{ message }}</div>
 				{% endfor %}
+			{% endfor %}
 
 			{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 
 			{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-			{# {{ form_start(form) }} #}
-
-
-			<div class="form-group">
-				{{ form_row(form.title) }}
-				{# <div class="text-danger">
-					{{ form_errors(form.title) }}
-				</div> #}
-			</div>
-
-
-			<div class="form-group">
-				{{ form_row(form.shortDescription) }}
-				{# <div class="text-danger">
-					{{ form_errors(form.shortDescription) }}
-				</div> #}
-			</div>
-
-
-			<div class="form-group">
-				{{ form_row(form.imageFile) }}
-				{# <div class="text-danger">
-					{{ form_errors(form.imageFile) }}
-				</div> #}
-			</div>
-
-
-			<div class="form-group">
-				{{ form_row(form.body) }}
-				{# <div class="text-danger">
-					{{ form_errors(form.body) }}
-				</div> #}
-			</div>
-
-
-			<input type="submit" class="btn btn-primary"/>
-			{# Decommentare per debug, in caso mancasse da mostrare un campo del form #}
-			{# {{ form_rest(form) }} #}
 
 			{{ form_end(form) }}
 		</div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+	$('.custom-file-input').on('change', function(event) {
+	    let inputFile = event.currentTarget;
+	    $(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
+	});
+	</script>
 {% endblock %}

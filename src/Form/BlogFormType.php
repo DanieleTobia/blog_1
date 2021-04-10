@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class BlogFormType extends AbstractType
 {
@@ -21,7 +21,14 @@ class BlogFormType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 
-            ]);
+            ])
+            ->add('button', SubmitType::class, [
+                "label"=>"Submit", 
+                "attr"=>[
+                    "class"=>"btn btn-primary"
+                    ]
+            ])
+            
         ;
     }
 
